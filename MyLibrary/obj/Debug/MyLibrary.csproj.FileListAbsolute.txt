@@ -1,0 +1,5 @@
+C:\Projects\MySync\MyLibrary\bin\Debug\MyLibrary.dll
+C:\Projects\MySync\MyLibrary\bin\Debug\MyLibrary.pdb
+C:\Projects\MySync\MyLibrary\obj\Debug\MyLibrary.dll
+C:\Projects\MySync\MyLibrary\obj\Debug\MyLibrary.pdb
+C:\Projects\MySync\MyLibrary\obj\Debug\MyLibrary.csprojResolveAssemblyReference.cache

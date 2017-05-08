@@ -1,0 +1,6 @@
+C:\Projects\TestSerializer.exe.config
+C:\Projects\MySync\TestSerializer\obj\Debug\TestSerializer.exe
+C:\Projects\TestSerializer.exe
+C:\Projects\MySync\TestSerializer.exe.config
+C:\Projects\MySync\TestSerializer.exe
+C:\Projects\MySync\TestSerializer\obj\Debug\TestSerializer.csprojResolveAssemblyReference.cache
