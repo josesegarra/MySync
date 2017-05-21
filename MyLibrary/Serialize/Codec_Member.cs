@@ -95,7 +95,7 @@ namespace JSegarra.Serialize
         }
 
         internal static List<CoDec> InitFromType(Type BaseType, Serializer ser)
-        {
+        { 
             List<CoDec> members = new List<CoDec>();
             string f = "";
             foreach (MemberInfo m in BaseType.GetMembers(WhichMembers))                                                 // Loop all members of the object

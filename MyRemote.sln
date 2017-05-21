@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestSerializer", "TestSeria
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyLibrary", "MyLibrary\MyLibrary.csproj", "{D2C73F18-E843-434B-AACE-A9159D898FC5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebSite", "WebSite\WebSite.csproj", "{5BAC4BA7-123F-4D2D-B76B-F2B434D1BCD2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -25,6 +27,10 @@ Global
 		{D2C73F18-E843-434B-AACE-A9159D898FC5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D2C73F18-E843-434B-AACE-A9159D898FC5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D2C73F18-E843-434B-AACE-A9159D898FC5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5BAC4BA7-123F-4D2D-B76B-F2B434D1BCD2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5BAC4BA7-123F-4D2D-B76B-F2B434D1BCD2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5BAC4BA7-123F-4D2D-B76B-F2B434D1BCD2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5BAC4BA7-123F-4D2D-B76B-F2B434D1BCD2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
