@@ -46,12 +46,10 @@ namespace ProductsApp.Controllers
         {
             HttpContent requestContent = Request.Content;
             string jsonContent = requestContent.ReadAsStringAsync().Result;
-            File.AppendAllText(@"C:\temp\1.txt", jsonContent + "\n");
+            //File.AppendAllText(@"C:\temp\1.txt", jsonContent + "\n");
             jsonContent = HttpUtility.UrlDecode(jsonContent);
-            File.AppendAllText(@"C:\temp\1.txt", jsonContent + "\n");
-
-
-
+            //File.AppendAllText(@"C:\temp\1.txt", jsonContent + "\n");
+            
             return Ok(
                 new { ok=1}
                 );
