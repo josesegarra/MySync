@@ -1,17 +1,46 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
+    <!--
+        
+    https://docs.microsoft.com/en-us/aspnet/web-api/overview/getting-started-with-aspnet-web-api/tutorial-your-first-web-api
+        https://www.asp.net/aspnet/samples/aspnet-web-api
+        -->
     <meta charset="utf-8" />
+    
+    <script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
+    
+    <script>
+        function postdata() {
+
+            var a = {
+                data: "1000",
+                items: [10, 20, 30]
+            };
+
+            $.ajax({
+                type: 'POST',
+                url: '/api/Products/RunAction',
+                data: { 'items': JSON.stringify(a) }
+            });
+
+        }
+
+    </script>
+    
     <title></title>
 </head>
 <body>
     Hello world
     <ul>
         <li>
-            <a href="/api/Products">Get all products</a>
+            <a href="/api/Products/GetAllProducts">Get all products</a>
         </li>
         <li>
-            <a href="/api/Products/3">Get products 3</a>
+            <a href="/api/Products/GetProduct/3">Get products 3</a>
+        </li>
+        <li>
+            <a href="#" onclick="postdata();">Post data</a>
         </li>
     </ul>
 </body>

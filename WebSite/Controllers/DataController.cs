@@ -2,8 +2,18 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
+using System.IO;
+using System.Net.Http;
 using System.Web.Http;
+using System.Web;
+
+/*
+
+Open your startup project's properties (Project->{ProjectName} Properties... from the main menu or right click your 
+project in the Solution Explorer and choose Properties), then navigate to the Web tab and under Start Action choose 
+Don't open a page. Wait for a request from an external application.
+
+*/
 
 namespace ProductsApp.Controllers
 {
@@ -29,6 +39,22 @@ namespace ProductsApp.Controllers
                 return NotFound();
             }
             return Ok(product);
+        }
+
+        [HttpPost]
+        public IHttpActionResult RunAction()
+        {
+            HttpContent requestContent = Request.Content;
+            string jsonContent = requestContent.ReadAsStringAsync().Result;
+            File.AppendAllText(@"C:\temp\1.txt", jsonContent + "\n");
+            jsonContent = HttpUtility.UrlDecode(jsonContent);
+            File.AppendAllText(@"C:\temp\1.txt", jsonContent + "\n");
+
+
+
+            return Ok(
+                new { ok=1}
+                );
         }
     }
 }
