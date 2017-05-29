@@ -40,8 +40,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Core\Gac.cs" />
+    <Compile Include="Core\Bundle.cs" />
     <Compile Include="Core\Constants.cs" />
     <Compile Include="Core\Extensions.cs" />
+    <Compile Include="Core\ThreadSafeList.cs" />
     <Compile Include="Core\Logger.cs" />
     <Compile Include="Core\Utils.cs" />
     <Compile Include="Json\Json.cs" />
@@ -51,6 +54,10 @@
     <Compile Include="Json\JsonExtensions.cs" />
     <Compile Include="Json\JsonMapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Remoting\Deployment.cs" />
+    <Compile Include="Remoting\HttpTransport.cs" />
+    <Compile Include="Remoting\Messages.cs" />
+    <Compile Include="Remoting\Remoting.cs" />
     <Compile Include="Serialize\Codec_Member.cs" />
     <Compile Include="Serialize\Context.cs" />
     <Compile Include="Serialize\Decoder\Decode_Array.cs" />
