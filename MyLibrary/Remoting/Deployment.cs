@@ -11,11 +11,18 @@ namespace JSegarra.Remote
 {
     public class Deployment
     {
-        internal string Host;
-        internal string Id;
+        delegate byte[] SendMessageDel(Uri where, byte[] message);
         internal string ConnectionId = "";
         internal string DeployId = "";
         internal Uri uri;
+        SendMessageDel msgFunc;
+
+ 
+        static Dictionary<string, SendMessageDel> transports = new Dictionary<string, SendMessageDel>()
+        {
+            {"http", HttpTransport.SendMessage }
+        };
+
 
 
         IEnumerable<string> GetAssemblyFiles(Assembly assembly)
@@ -25,10 +32,12 @@ namespace JSegarra.Remote
                 yield return loadedAssemblies.SingleOrDefault(a => a.FullName == assemblyName.FullName)?.Location;
         }
 
-        public Deployment(string uri,string userName,string passWord)
+        public Deployment(string theUri,string userName,string passWord)
         {
-            this.uri = new Uri(uri);
-            Logger.Green(this.uri.Scheme);
+            uri = new Uri(theUri);
+            if (!transports.TryGetValue(uri.Scheme, out msgFunc)) throw new Exception("Unknown schema: " + uri.Scheme);
+            msgFunc(uri, Messages.Login(userName, passWord));
+
 
 
         }

@@ -38,7 +38,6 @@ namespace MyDemo
 
         static void Main(string[] args)
         {
-            Console.WriteLine("This is demo");
             Deployment deploy= Remoting.Deploy("http://localhost:3019/register","userid","password");
 
             //connection.Execute(CheckDrives.GetType());
