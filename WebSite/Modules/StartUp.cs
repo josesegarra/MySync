@@ -6,14 +6,19 @@ public class Helper
 {
     static int i = 10;
     static object myLock = new object();
+    static string LogFolder = @"C:\temp\";
+
 
     public static void Log(string a, bool clear = false)
     {
         lock (myLock)
         {
-            if (clear) System.IO.File.WriteAllText(@"C:\temp\myremote.txt", "Clearing log\n\n");
-            System.IO.File.AppendAllText(@"C:\temp\myremote.txt", i.ToString().PadLeft(8) + " " + a.Trim() + "\n");
-            i++;
+            if (System.IO.Directory.Exists(LogFolder))
+            {
+                if (clear) System.IO.File.WriteAllText(LogFolder+"myremote.txt", "Clearing log\n\n");
+                System.IO.File.AppendAllText(LogFolder + "myremote.txt", i.ToString().PadLeft(8) + " " + a.Trim() + "\n");
+                i++;
+            }
         }
     }
 
@@ -21,7 +26,10 @@ public class Helper
     {
         lock (myLock)
         {
-            System.IO.File.AppendAllText(@"C:\temp\myremote.txt", "*********** " + a.Trim() + "\n");
+            if (System.IO.Directory.Exists(LogFolder))
+            {
+                System.IO.File.AppendAllText(LogFolder + "myremote.txt", "*********** " + a.Trim() + "\n");
+            }
         }
     }
 
@@ -30,8 +38,11 @@ public class Helper
     {
         lock (myLock)
         {
-            a = a.Trim().PadLeft(15);
-            System.IO.File.AppendAllText(@"C:\temp\myremote.txt", "                     " + a + " " + b + "\n");
+            if (System.IO.Directory.Exists(LogFolder))
+            {
+                a = a.Trim().PadLeft(15);
+                System.IO.File.AppendAllText(LogFolder + "myremote.txt", "                     " + a + " " + b + "\n");
+            }
         }
     }
     
