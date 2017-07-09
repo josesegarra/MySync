@@ -11,8 +11,8 @@ public class Helper
     {
         lock (myLock)
         {
-            if (clear) System.IO.File.WriteAllText(@"C:\temp\myremote.txt", "Clearing log\n\n");
-            System.IO.File.AppendAllText(@"C:\temp\myremote.txt", i.ToString().PadLeft(8) + " " + a.Trim() + "\n");
+            //if (clear) System.IO.File.WriteAllText(@"C:\temp\myremote.txt", "Clearing log\n\n");
+            //System.IO.File.AppendAllText(@"C:\temp\myremote.txt", i.ToString().PadLeft(8) + " " + a.Trim() + "\n");
             i++;
         }
     }
@@ -21,7 +21,7 @@ public class Helper
     {
         lock (myLock)
         {
-            System.IO.File.AppendAllText(@"C:\temp\myremote.txt", "*********** " + a.Trim() + "\n");
+           // System.IO.File.AppendAllText(@"C:\temp\myremote.txt", "*********** " + a.Trim() + "\n");
         }
     }
 
@@ -31,7 +31,7 @@ public class Helper
         lock (myLock)
         {
             a = a.Trim().PadLeft(15);
-            System.IO.File.AppendAllText(@"C:\temp\myremote.txt", "                     " + a + " " + b + "\n");
+            //System.IO.File.AppendAllText(@"C:\temp\myremote.txt", "                     " + a + " " + b + "\n");
         }
     }
     
