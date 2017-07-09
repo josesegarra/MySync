@@ -3,6 +3,7 @@ using System.Security.Cryptography;
 using System.Text;
 
 // http://www.csharpdeveloping.net/Snippet/how_to_encrypt_decrypt_using_asymmetric_algorithm_rsa
+// https://dotnetcodr.com/2013/11/11/introduction-to-asymmetric-encryption-in-net-cryptography/
 
 
 

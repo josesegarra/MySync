@@ -15,8 +15,8 @@ public class Helper
         {
             if (System.IO.Directory.Exists(LogFolder))
             {
-                if (clear) System.IO.File.WriteAllText(LogFolder+"myremote.txt", "Clearing log\n\n");
-                System.IO.File.AppendAllText(LogFolder + "myremote.txt", i.ToString().PadLeft(8) + " " + a.Trim() + "\n");
+                //if (clear) System.IO.File.WriteAllText(LogFolder+"myremote.txt", "Clearing log\n\n");
+                //System.IO.File.AppendAllText(LogFolder + "myremote.txt", i.ToString().PadLeft(8) + " " + a.Trim() + "\n");
                 i++;
             }
         }
@@ -28,7 +28,7 @@ public class Helper
         {
             if (System.IO.Directory.Exists(LogFolder))
             {
-                System.IO.File.AppendAllText(LogFolder + "myremote.txt", "*********** " + a.Trim() + "\n");
+                //System.IO.File.AppendAllText(LogFolder + "myremote.txt", "*********** " + a.Trim() + "\n");
             }
         }
     }
@@ -41,7 +41,7 @@ public class Helper
             if (System.IO.Directory.Exists(LogFolder))
             {
                 a = a.Trim().PadLeft(15);
-                System.IO.File.AppendAllText(LogFolder + "myremote.txt", "                     " + a + " " + b + "\n");
+                //System.IO.File.AppendAllText(LogFolder + "myremote.txt", "                     " + a + " " + b + "\n");
             }
         }
     }
