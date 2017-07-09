@@ -37,5 +37,15 @@ namespace JSegarra.Core
                     if (type.FullName == name) return type;
             return null;
         }
+
+        public static byte[] Encode(string r)
+        {
+            return Encoding.UTF8.GetBytes(r);
+        }
+
+        public static string Decode(byte[] r)
+        {
+            return Encoding.UTF8.GetString(r);
+        }
     }
 }

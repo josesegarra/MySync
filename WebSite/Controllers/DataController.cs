@@ -7,13 +7,10 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web;
 
-/*
-
-Open your startup project's properties (Project->{ProjectName} Properties... from the main menu or right click your 
-project in the Solution Explorer and choose Properties), then navigate to the Web tab and under Start Action choose 
-Don't open a page. Wait for a request from an external application.
-
-*/
+// http://www.hanselman.com/blog/HowToRunBackgroundTasksInASPNET.aspx
+// http://haacked.com/archive/2011/10/16/the-dangers-of-implementing-recurring-background-tasks-in-asp-net.aspx/
+// https://www.hangfire.io/
+// https://msdn.microsoft.com/en-us/library/ms227673.aspx
 
 namespace ProductsApp.Controllers
 {

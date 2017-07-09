@@ -6,21 +6,22 @@ using System.Threading.Tasks;
 using System.Linq.Expressions;
 using System.Reflection;
 using JSegarra.Core;
+using JSegarra.JSON;
 
 namespace JSegarra.Remote
 {
     public class Deployment
     {
-        delegate byte[] SendMessageDel(Uri where, byte[] message);
+        delegate Task<string> SendMessageDel(Uri where, string message);
         internal string ConnectionId = "";
         internal string DeployId = "";
         internal Uri uri;
         SendMessageDel msgFunc;
 
- 
         static Dictionary<string, SendMessageDel> transports = new Dictionary<string, SendMessageDel>()
         {
-            {"http", HttpTransport.SendMessage }
+           {"http", HttpTransport.SendMessage },
+           {"https", HttpTransport.SendMessage }
         };
 
 
@@ -32,12 +33,24 @@ namespace JSegarra.Remote
                 yield return loadedAssemblies.SingleOrDefault(a => a.FullName == assemblyName.FullName)?.Location;
         }
 
+
+        async void Login(string userName, string passWord)
+        {
+            Task<string> fmsg = msgFunc(uri, Messages.Login(userName, passWord));                                                           // Send a login message to the server
+            fmsg.Wait();                                                                                                                    // Wait for the Task to complete
+            string msg = await fmsg;                                                                                                        // Get the message
+            if (msg == null) throw new Exception("Deployment.Login failed");                                                                // If no message the fail
+            Json jsmg = Json.Parse(msg);                                                                                       // Parse the message and decode it
+            ConnectionId = jsmg.Get("id");                                                                                                   // Get the connection ID
+            Logger.Green("Connection Id " + ConnectionId);
+        }
+
+
         public Deployment(string theUri,string userName,string passWord)
         {
             uri = new Uri(theUri);
-            if (!transports.TryGetValue(uri.Scheme, out msgFunc)) throw new Exception("Unknown schema: " + uri.Scheme);
-            msgFunc(uri, Messages.Login(userName, passWord));
-
+            if (!transports.TryGetValue(uri.Scheme, out msgFunc)) throw new Exception("Unknown transport: " + uri.Scheme);                     // Get the Transport function
+            Login(userName, passWord);
 
 
         }

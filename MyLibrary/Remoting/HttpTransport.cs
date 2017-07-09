@@ -36,31 +36,25 @@ namespace JSegarra.Remote
             }
         }
 
-        https://code.msdn.microsoft.com/windowsapps/How-to-use-HttpClient-to-b9289836
+        //https://code.msdn.microsoft.com/windowsapps/How-to-use-HttpClient-to-b9289836
 
-        static internal byte[] SendMessage(Uri where,byte[] message)
+        static async internal Task<string> SendMessage(Uri where,string message)
         {
-            Logger.Green("Hello");
-            var response = await client.PostAsync(where,message);
+            try
+            { 
+                Logger.Green("Sending message to "+where);
 
-            HttpClient client = new HttpClient();
-            //Preparing to have something to read
-            var stringContent = new StringContent("someHardCodedStringToTellTheServerToPublishTheDataTheAppWillConsume");
-            var sending = await client.PostAsync(url, stringContent);
-
-            //Reading data
-            var response = await client.GetAsync(url);
-            var json = await response.Content.ReadAsStringAsync();
-            return Newtonsoft.Json.JsonConvert.DeserializeObject<T>(json);
-        }
+                HttpClient client = new HttpClient();
+                HttpResponseMessage response = await client.PostAsync(where, new StringContent(message));                               // Posts message
+                response.EnsureSuccessStatusCode();                                                                                     // Throws an exception if failed
+                string responseBody = await response.Content.ReadAsStringAsync();                                                       // Read response
+                return responseBody;                                                                                                    // And return it
+            }
             catch
             {
-                return default(T);
+                return null;
             }   
-
-            return null;
         }
-
 
     }
 }

@@ -93,12 +93,22 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\Authorization.cs" />
+    <Compile Include="Controllers\RemoteController.cs" />
     <Compile Include="Controllers\DataController.cs" />
+    <Compile Include="Controllers\Sessions.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Model\Products.cs" />
+    <Compile Include="Modules\StartUp.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MyLibrary\MyLibrary.csproj">
+      <Project>{d2c73f18-e843-434b-aace-a9159d898fc5}</Project>
+      <Name>MyLibrary</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -160,6 +160,19 @@ namespace JSegarra.JSON
             }
         }
 
+        public string Get(string key,string Default=null)
+        {
+            Json k = _JsonGet(key);
+            if (k == null)
+            {
+                if (Default!=null) return Default; else throw new Exception("JSON object does not have a [" + key + "] property");
+            }
+            if (k.Kind == JsonKind.String) return k.Value.ToString();
+            return k.ToString();
+        }
+
+
+
         public Json Add(object value)
         {
             Json k = (value != null && (value is Json)) ? (Json)value : new Json(value);
@@ -186,7 +199,7 @@ namespace JSegarra.JSON
         
         internal Json _JsonGet(string key)
         {
-            if (Kind != JsonKind.Object) throw new Exception("json[string].get only works with json object values");
+            if (Kind != JsonKind.Object) throw new Exception("json[string]._JsonGet only works with json object values and we have "+Kind.ToString());
             JsonMapper d = (JsonMapper)Value;
             Json j;
             if (!d.TryGetValue(key, out j)) return null;
@@ -261,7 +274,7 @@ namespace JSegarra.JSON
 
     internal class Parser
     {
-        const string WORD_BREAK = "{}[],:\"";
+        const string WORD_BREAK = "{}[],:\"'";
         enum TOKEN { NONE, CURLY_OPEN, CURLY_CLOSE, SQUARED_OPEN, SQUARED_CLOSE, COLON, COMMA, STRING, NUMBER, TRUE, FALSE, IDENT,BASE64,NULL,FETCH };
         string curWord = "";
         StringReader source;
@@ -283,6 +296,7 @@ namespace JSegarra.JSON
                     if (c == ']') return TOKEN.SQUARED_CLOSE;
                     if (c == ',') return TOKEN.COMMA;
                     if (c == '"') return TOKEN.STRING;
+                    if (c == '\'') return TOKEN.STRING;
                     if (c == '*') return TOKEN.BASE64;
                     if (c == ':') return TOKEN.COLON;
                     if (c == '-' || (c>='0' && c<='9')) return TOKEN.NUMBER;
@@ -355,7 +369,7 @@ namespace JSegarra.JSON
             
             while ((t = NextToken())!=TOKEN.CURLY_CLOSE)                                                            // read until finding '}'
             {
-                if (t == TOKEN.STRING || t == TOKEN.IDENT) ParseObjectMember(t,values);
+                if (t == TOKEN.STRING || t == TOKEN.IDENT) ParseObjectMember(t,values);                             // Member name can start with IDENT or STRING
                 else if (t == TOKEN.NONE) throw new Exception("Unexpected EOF when Parsing object definition");
                 else throw new Exception("Unexpected TOKEN " + t);
             }
@@ -450,12 +464,13 @@ namespace JSegarra.JSON
         string ParseString()
         {
             int i;
-            source.Read();                                              // Skip opening ["]
+            char endChar=Convert.ToChar(source.Read());                                     // Get opening symbol [" or ']
             StringBuilder s = new StringBuilder();
+           
             while ((i = source.Peek()) != -1)
             {
                 char c = Convert.ToChar(i);
-                if (c == '"')
+                if (c == endChar)
                 {
                     source.Read();
                     return s.ToString();

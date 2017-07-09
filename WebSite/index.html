@@ -4,6 +4,13 @@
     <!--
     https://docs.microsoft.com/en-us/aspnet/web-api/overview/getting-started-with-aspnet-web-api/tutorial-your-first-web-api
         https://www.asp.net/aspnet/samples/aspnet-web-api
+
+
+        http://benjii.me/2014/11/run-iis-express-on-port-443-using-ssl-and-wildcard-subdomains/
+        C:\Program Files\IIS Express>iisexpress.exe
+        https://localhost:44300/index.html
+        http://localhost:8080/index.html
+
         -->
     <meta charset="utf-8" />
     
@@ -19,8 +26,10 @@
 
             $.ajax({
                 type: 'POST',
-                url: '/api/Products/RunAction',
-                data: { 'items': JSON.stringify(a) }
+                dataType: 'json',
+                // url: '/api/Products/RunAction',
+                url: '/api/Remote/Action',
+                data: JSON.stringify({ action: 'login', user: 'jose1', password: 'p3' })
             });
 
         }
@@ -39,7 +48,7 @@
             <a href="/api/Products/GetProduct/3">Get products 3</a>
         </li>
         <li>
-            <a href="#" onclick="postdata();">Post data</a>
+            <a href="#" onclick="postdata();">Login test</a>
         </li>
     </ul>
 </body>

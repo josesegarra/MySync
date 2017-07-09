@@ -31,7 +31,6 @@ namespace Music
             );
             Genres g0=Genres.Alternative| Genres.PostPunk | Genres.Rock;
             u2.Records.Add(new Record("Boy", u2, g0, new DateTime(1980, 10,20), "S. Lillywhite"));
-            /*
             u2.Records.Add(new Record("October", u2, g0, new DateTime(1981, 10, 12), "S. Lillywhite"));
             u2.Records.Add(new Record("War", u2, g0, new DateTime(1983, 02,28), "S. Lillywhite"));
             u2.Records.Add(new Record("The Unforgettable Fire", u2, g0, new DateTime(1984,10,1),"B. Eno, D. Lanois"));
@@ -44,7 +43,6 @@ namespace Music
             u2.Records.Add(new Record("How to Dismantle an Atomic Bomb", u2, Genres.Rock, new DateTime(2004,11,22),"S. Lillywhite|C. Thomas*|J. Lee*|N. Hooper*|Flood*|D. Lanois*|B. Eno*|C. Glanville*"));
             u2.Records.Add(new Record("No Line on the Horizon", u2, Genres.Rock, new DateTime(2009,02,27),"B. Eno|D. Lanois|S. Lillywhite"));
             u2.Records.Add(new Record("Songs of Innocence", u2, g0, new DateTime(2014, 9, 9), "Danger Mouse|P. Epworth*|R. Tedder*|D. Gaffney*|Flood*"));
-            */
             return u2;
         }
 
