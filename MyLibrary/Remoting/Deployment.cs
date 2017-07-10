@@ -12,7 +12,7 @@ namespace JSegarra.Remote
 {
     public class Deployment
     {
-        delegate Task<string> SendMessageDel(Uri where, string message);
+        delegate string SendMessageDel(Uri where, string message);
         internal string ConnectionId = "";
         internal string DeployId = "";
         internal Uri uri;
@@ -20,8 +20,8 @@ namespace JSegarra.Remote
 
         static Dictionary<string, SendMessageDel> transports = new Dictionary<string, SendMessageDel>()
         {
-           {"http", HttpTransport.SendMessage },
-           {"https", HttpTransport.SendMessage }
+           {"http", HttpTransport.Request},
+           {"https", HttpTransport.Request}
         };
 
 
@@ -34,24 +34,36 @@ namespace JSegarra.Remote
         }
 
 
-        async void Login(string userName, string passWord)
+        void DoLogin(string userName, string passWord)
         {
-            Task<string> fmsg = msgFunc(uri, Messages.Login(userName, passWord));                                                           // Send a login message to the server
-            fmsg.Wait();                                                                                                                    // Wait for the Task to complete
-            string msg = await fmsg;                                                                                                        // Get the message
+            
+            string msg = msgFunc(uri, Messages.Login(userName, passWord));                                                                  // Send a login message to the server
             if (msg == null) throw new Exception("Deployment.Login failed");                                                                // If no message the fail
-            Json jsmg = Json.Parse(msg);                                                                                       // Parse the message and decode it
-            ConnectionId = jsmg.Get("id");                                                                                                   // Get the connection ID
-            Logger.Green("Connection Id " + ConnectionId);
+            Json jsmg = Json.Parse(msg);                                                                                                    // Parse the message and decode it
+            ConnectionId = jsmg.Get("id","");                                                                                                  // Get the connection ID
+            if (ConnectionId == "") throw new Exception("Could not login: " + uri);
+            Logger.Green("Connection Id " + ConnectionId);                                                                                  // Log connection
         }
 
+
+        void DoBundle()
+        {
+            Bundle bundle = new Bundle();
+            int i;
+            for (i = 0; i < bundle.Chunks.Count; i++)
+            {
+                string msg = msgFunc(uri, Messages.Chunk(ConnectionId, i, bundle.Chunks.Count, bundle.Chunks[i]));                                  // Send a login message to the server
+                if (msg == null) throw new Exception("Deployment.Login failed sending chunk: " + i);                                                                // If no message the fail
+                Logger.Green(msg);
+            }
+        }
 
         public Deployment(string theUri,string userName,string passWord)
         {
             uri = new Uri(theUri);
-            if (!transports.TryGetValue(uri.Scheme, out msgFunc)) throw new Exception("Unknown transport: " + uri.Scheme);                     // Get the Transport function
-            Login(userName, passWord);
-
+            if (!transports.TryGetValue(uri.Scheme, out msgFunc)) throw new Exception("Unknown transport: " + uri.Scheme);                      // Get the Transport function
+            DoLogin(userName, passWord);                                                                                                          // Do the login
+            DoBundle();
 
         }
 

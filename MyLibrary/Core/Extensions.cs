@@ -8,6 +8,9 @@ namespace JSegarra.Core
 {
     public static class Extensions
     {
+
+
+
         public static string Right(this string str, int length)
         {
             if (str == null) return String.Empty;

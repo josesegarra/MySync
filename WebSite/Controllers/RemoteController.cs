@@ -25,7 +25,8 @@ public class RemoteController : ApiController
 
     static Dictionary<string, ExecuteAction> actions = new Dictionary<string, ExecuteAction>()
     {
-         {"login", Login }
+         {"login", Login },
+         {"chunk",Chunk }
     };
 
     static Json GetPublicKey(Json v)
@@ -41,6 +42,25 @@ public class RemoteController : ApiController
         jsonOut["id"] = s.id.ToString();
         return jsonOut;
     }
+
+    static Json Chunk(Json jsonIn)
+    {
+        string sessionId = jsonIn.Get("id","");
+        int chunk = jsonIn.GetI("chunk",-1);
+        int total= jsonIn.GetI("total",-1);
+        byte[] data = (byte[])jsonIn["data"];
+        if (sessionId=="" || chunk==-1 || total==-1 || data==null) return JSegarra.JSON.Json.Parse("{ ok: false, msg:'Bad params for CHUNK action '}");
+
+        Json jsonOut = new Json(JsonKind.Object);
+            
+        jsonOut["id"] = sessionId;
+        jsonOut["id1"] = chunk;
+        jsonOut["id2"] = total;
+        jsonOut["id3"] = data.Length;
+
+        return jsonOut;
+    }
+
 
     HttpResponseMessage Build(bool ok,Json c)
     {

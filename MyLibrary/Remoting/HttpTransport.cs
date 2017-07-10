@@ -56,5 +56,23 @@ namespace JSegarra.Remote
             }   
         }
 
+
+        static internal string Request(Uri where, string message)
+        {
+            try
+            {
+                Logger.Green("Sending sync message to " + where);
+                using (var client= new HttpClient())
+                {
+                    HttpResponseMessage response = client.PostAsync(where, new StringContent(message)).Result;                               // Posts message
+                    return response.Content.ReadAsStringAsync().Result;                                                       // Read response
+                }
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
     }
 }

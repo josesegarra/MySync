@@ -171,6 +171,18 @@ namespace JSegarra.JSON
             return k.ToString();
         }
 
+        public int GetI(string key, int Default = -1,bool ThrowOnFail=false)
+        {
+            Json k = _JsonGet(key);
+            if (k == null)
+            {
+                if (ThrowOnFail) throw new Exception("JSON object does not have a [" + key + "] property");
+                return Default;
+            }
+            if (k.Kind == JsonKind.Integer) return (int)k.Value;
+            if (k.Kind == JsonKind.String) if (Int32.TryParse(k.Value.ToString(), out Default)) return Default;
+            throw new Exception("Property [" + key + "] is not a integer");
+        }
 
 
         public Json Add(object value)
